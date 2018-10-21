@@ -4,28 +4,28 @@
   "description": "zips a folder",
   "main": "index.js",
   "scripts": {
-    "test": "nodeunit tests.js"
+    "test": "mocha test/folder-zipper.spec.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sole/node-zip-folder"
+    "url": "https://github.com/camdagr8/folder-zipper"
   },
   "keywords": [
     "zip",
     "folder"
   ],
-  "author": "sole",
-  "license": "Apache 2",
+  "author": "Cam Tullos <cam@tullos.ninja>",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sole/node-zip-folder/issues"
+    "url": "https://github.com/camdagr8/folder-zipper/issues"
   },
-  "homepage": "https://github.com/sole/node-zip-folder",
+  "homepage": "https://github.com/camdagr8/folder-zipper",
   "dependencies": {
-    "archiver": "^3.0.0"
+    "archiver": "^3.0.0",
+    "fs-extra": "^7.0.0"
   },
   "devDependencies": {
-    "nodeunit": "^0.9.0",
-    "temporary": "0.0.8",
-    "unzip": "^0.1.11"
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
   }
 }

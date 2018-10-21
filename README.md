@@ -1,22 +1,16 @@
-# node-zip-folder
-
-> zips a folder and calls your callback when it's done
-> AKA: something that maybe already exists in npmjs.org, but that I couldn't find.
+# Folder Zipper
+Zips a folder of files.
 
 ## Usage
 
 ```javascript
-var zipFolder = require('zip-folder');
+const folderZipper = require('folder-zipper');
 
-zipFolder('/path/to/the/folder', '/path/to/archive.zip', function(err) {
-	if(err) {
-		console.log('oh no!', err);
-	} else {
-		console.log('EXCELLENT');
-	}
+folderZipper('/path/to/folder', '/path/to/archive.zip')
+.then(result => {
+    console.log('Done!');
+})
+.catch(error => {
+    console.log(error);
 });
 ```
-
-## Tests
-
-Tests are in `tests.js` and built with nodeunit. Run `npm test` to run the tests.

@@ -1,25 +1,23 @@
-var fs = require('fs');
-var archiver = require('archiver');
+const fs       = require('fs-extra');
+const path     = require('path');
+const archiver = require('archiver');
 
-function zipFolder(srcFolder, zipFilePath, callback) {
-	var output = fs.createWriteStream(zipFilePath);
-	var zipArchive = archiver('zip');
 
-	output.on('close', function() {
-		callback();
-	});
+module.exports = (folder, zipFile) => new Promise((resolve, reject) => {
+    folder  = path.normalize(folder);
+    zipFile = path.normalize(zipFile);
 
-	zipArchive.pipe(output);
+    fs.ensureDirSync(path.dirname(zipFile));
 
-	zipArchive.bulk([
-		{ cwd: srcFolder, src: ['**/*'], expand: true }
-	]);
+    const zip    = archiver('zip');
+    const stream = fs.createWriteStream(zipFile);
 
-	zipArchive.finalize(function(err, bytes) {
-		if(err) {
-			callback(err);
-		}
-	});
-}
+    stream.on('close', () => resolve());
 
-module.exports = zipFolder;
+    zip.on('error', err => reject(err));
+    zip.pipe(stream);
+    zip.directory(folder, path.basename(zipFile, '.zip'));
+    zip.finalize(err => {
+        if (err) { reject(err); }
+    });
+});
